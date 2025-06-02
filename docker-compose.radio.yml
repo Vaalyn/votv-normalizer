@@ -1,0 +1,14 @@
+services:
+    radio-normalize:
+        container_name: "votv-radio-normalize"
+        build:
+            context: .
+        #platform: "linux/amd64"
+        entrypoint: sh
+        command:
+            - -c
+            - >
+              find /tmp/radio -type f -name "*.mp3" | parallel -j 0 ffmpeg-normalize "{}" -v -of /tmp/normalized/radio -c:a libmp3lame -ext mp3 -e="-acodec\ mp3"
+        volumes:
+            - ./normalized:/tmp/normalized
+            - ./radio:/tmp/radio

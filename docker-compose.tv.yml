@@ -1,0 +1,14 @@
+services:
+    tv-normalize:
+        container_name: "votv-tv-normalize"
+        build:
+            context: .
+        #platform: "linux/amd64"
+        entrypoint: sh
+        command:
+            - -c
+            - >
+              find /tmp/tv -type f -name "*.mp4" | parallel -j 0 ffmpeg-normalize "{}" -v -of /tmp/normalized/tv -c:a aac -ext mp4 -e=\"[ \\\"-c:v\\\", \\\"copy\\\" ]\"
+        volumes:
+            - ./normalized:/tmp/normalized
+            - ./tv:/tmp/tv

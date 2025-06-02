@@ -1,0 +1,13 @@
+.DS_Store
+
+./normalized/radio/*
+!./normalized/radio/.gitkeep
+
+./normalized/tv/*
+!./normalized/tv/.gitkeep
+
+./radio/*
+!./radio/.gitkeep
+
+./tv/*
+!./tv/.gitkeep
