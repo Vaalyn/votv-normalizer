@@ -8,7 +8,7 @@ services:
         command:
             - -c
             - >
-              find /tmp/tv -type f -name "*.mp4" | parallel -j 0 ffmpeg-normalize "{}" -v -of /tmp/normalized/tv -c:a aac -ext mp4 -e=\"[ \\\"-c:v\\\", \\\"copy\\\" ]\"
+              find /tmp/tv -type f -name "*.mp4" | parallel -j 8 ffmpeg-normalize "{}" -v -ar 44100 -of /tmp/normalized/tv -c:a aac -ext mp4 -e=\"[ \\\"-c:v\\\", \\\"copy\\\" ]\"
         volumes:
             - ./normalized:/tmp/normalized
             - ./tv:/tmp/tv
