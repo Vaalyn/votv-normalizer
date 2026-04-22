@@ -4,11 +4,9 @@ FROM base AS builder
 RUN mkdir /ffmpeg
 WORKDIR /ffmpeg
 
-#RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
-#RUN tar -xf ffmpeg-release-amd64-static.tar.xz -C /ffmpeg --strip-components=1
-
-RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-arm64-static.tar.xz
-RUN tar -xf ffmpeg-release-arm64-static.tar.xz -C /ffmpeg --strip-components=1
+ARG TARGETARCH
+RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-${TARGETARCH}-static.tar.xz
+RUN tar -xf ffmpeg-release-${TARGETARCH}-static.tar.xz -C /ffmpeg --strip-components=1
 
 FROM base
 COPY --from=builder /ffmpeg/ffmpeg /usr/local/bin
