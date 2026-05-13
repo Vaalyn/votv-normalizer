@@ -8,7 +8,7 @@ services:
         command:
             - -c
             - >
-              find /tmp/radio -type f -regextype posix-extended -regex ".*\.(mp3|m4a)" | parallel -j 8 ffmpeg-normalize "{}" -v -ar 44100 -of /tmp/normalized/radio -c:a libmp3lame -ext mp3 --keep-loudness-range-target --auto-lower-loudness-target
+              find /tmp/radio -type f \( -name "*.mp3" -o -name "*.m4a" \) | parallel -j 8 ffmpeg-normalize "{}" -v -ar 44100 -of /tmp/normalized/radio -c:a libmp3lame -ext mp3 --keep-loudness-range-target --auto-lower-loudness-target
         volumes:
             - ./normalized:/tmp/normalized
             - ./radio:/tmp/radio
